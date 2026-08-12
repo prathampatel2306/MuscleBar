@@ -1,0 +1,364 @@
+:root {
+    --background: #1c110d;
+    --surface: #1c110d;
+    --surface-bright: #453631;
+    --surface-container: #2a1d18;
+    --surface-container-high: #352722;
+    --surface-container-lowest: #160b08;
+    --primary: #ffb59c;
+    --primary-container: #f06530;
+    --on-primary: #5c1900;
+    --on-surface: #f6ddd6;
+    --on-surface-variant: #e1bfb5;
+    --secondary: #ffb59c;
+    --outline: #a88a81;
+    --outline-variant: #594139;
+    --font-headline: 'Montserrat', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-label: 'JetBrains Mono', monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--on-surface);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar Rules */
+.navbar {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--surface-container);
+    border-bottom: 1px solid var(--outline-variant);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.nav-actions a{
+    text-decoration:none;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    height: 2.5rem;
+    width: auto;
+    object-fit: contain;
+}
+
+.brand-title {
+    font-family: var(--font-headline);
+    font-weight: 900;
+    color: var(--primary);
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--on-surface-variant);
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+.nav-link.active {
+    color: var(--primary);
+    font-weight: 700;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 0.25rem;
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+}
+
+.logout-btn {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease;
+}
+
+.logout-btn:active {
+    transform: scale(0.95);
+}
+
+/* Main Layout */
+.main-content {
+    flex-grow: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 3rem 1.5rem;
+}
+
+.page-title {
+    font-family: var(--font-headline);
+    font-weight: 800;
+    font-size: 2.25rem;
+    margin-bottom: 2rem;
+    letter-spacing: -0.025em;
+    border-left: 4px solid var(--primary);
+    padding-left: 1rem;
+    text-transform: uppercase;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (min-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Trainer Card Component */
+/* Update the trainer-card to be a flex column */
+.trainer-card {
+    background-color: var(--surface-container-high);
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--outline-variant);
+
+    /* New Flex properties */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Update the container to adjust padding now that it's inside the card */
+.change-trainer-container {
+    display: flex;
+    justify-content: flex-end;
+
+    /* Replaced margin-top with padding to match the card's inner spacing */
+    padding: 0 2rem 2rem 2rem;
+}
+
+.trainer-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.trainer-name {
+    font-family: var(--font-headline);
+    font-weight: 900;
+    font-size: 1.875rem;
+    color: var(--on-surface);
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.divider-line {
+    height: 4px;
+    width: 3rem;
+    background-color: var(--primary);
+    border-radius: 9999px;
+}
+
+.info-label {
+    font-family: var(--font-label);
+    font-size: 0.875rem;
+    color: var(--secondary);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+}
+
+.experience-text {
+    font-family: var(--font-headline);
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: var(--on-surface);
+}
+
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    margin-top: 0.75rem;
+}
+
+.tag {
+    background-color: rgba(69, 54, 49, 0.4);
+    padding: 0.375rem 1rem;
+    border-radius: 9999px;
+    color: var(--on-surface);
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 1px solid rgba(255, 181, 156, 0.3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Sidebar Widgets */
+.sidebar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.widget-card {
+    background-color: var(--surface-container);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid var(--outline-variant);
+}
+
+.widget-title {
+    font-family: var(--font-label);
+    font-size: 0.875rem;
+    color: var(--on-surface-variant);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--outline-variant);
+    padding-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: var(--outline);
+    font-size: 0.875rem;
+}
+
+.stat-value {
+    font-family: var(--font-label);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.session-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.calendar-icon-box {
+    background-color: rgba(240, 101, 48, 0.2);
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-icon-box .material-symbols-outlined {
+    color: var(--primary-container);
+    font-size: 1.875rem;
+}
+
+.session-time {
+    font-weight: 700;
+    color: var(--on-surface);
+}
+
+.session-detail {
+    color: var(--outline);
+    font-size: 0.75rem;
+}
+
+/* Footer Rules */
+.footer {
+    width: 100%;
+    margin-top: auto;
+    background-color: var(--surface-container-lowest);
+    border-top: 1px solid var(--outline-variant);
+    padding: 1rem 0;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+
+.change-trainer-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0.9rem 2rem;
+
+    background: var(--primary);
+    color: var(--on-primary);
+
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+
+    transition: all .25s ease;
+}
+
+.change-trainer-btn:hover{
+    background: var(--primary-container);
+    color: var(--secondary-peach);
+
+    transform: translateY(-2px);
+}
+
+.change-trainer-btn:active{
+    transform: scale(.98);
+}

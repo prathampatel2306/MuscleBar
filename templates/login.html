@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Login - Muscle Bar</title>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="static/css/login.css">
+</head>
+<body>
+
+    <main class="login-card">
+        <div class="top-accent"></div>
+
+        <div class="card-content">
+            <header class="header">
+                <div class="logo-container">
+                    <img alt="Muscle Bar Logo" class="logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEE7m8TohrW5wAkffx1KI0dU6VZ7Rfh63-FTcQx2evbvfFmVfqTqeIzf6unjC3oWi28Un-K-WtKcDN_8huexXxr0uyr9EIkzKMXooSP8D05ddim5TCa8BjMUT8Mlzu4o2rtSaY6U_KXVvnOmPnlEp5mNZaZ3lwoZ6oQ5cpQku0-SzURvYSCIYaIJKtCLJD1JHlqbRJY5bLr04LibeVUaTDUyz791WRrUNayZQFh-7NQ7oW8IUYuRbXkVlBcinT1TQM"/>
+                </div>
+                <h1 class="title">Welcome Back</h1>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </header>
+
+            <form id="loginForm" class="login-form" method=post action="{{ url_for('auth.login') }}" >
+                <div class="input-group">
+                    <label class="input-label" for="username">Username</label>
+                    <input class="input-field" id="username" name="username" placeholder="Enter your username" required type="text"/>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label" for="password">Password</label>
+                    <div class="password-wrapper">
+                        <input class="input-field password-field" id="password" name="password" placeholder="••••••••" required type="password"/>
+                        <button type="button" id="togglePassword" class="toggle-password-btn">
+                            <span class="material-symbols-outlined icon-size">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <fieldset class="role-fieldset">
+                    <legend class="input-label">Role</legend>
+                    <div class="role-grid">
+                        <div class="radio-option">
+                            <input checked class="hidden-radio" id="role-member" name="role" type="radio" value="member"/>
+                            <label class="role-label" for="role-member">Member</label>
+                        </div>
+                        <div class="radio-option">
+                            <input class="hidden-radio" id="role-trainer" name="role" type="radio" value="trainer"/>
+                            <label class="role-label" for="role-trainer">Trainer</label>
+                        </div>
+                        <div class="radio-option">
+                            <input class="hidden-radio" id="role-admin" name="role" type="radio" value="admin"/>
+                            <label class="role-label" for="role-admin">Admin</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <button class="submit-btn" type="submit">Log In</button>
+            </form>
+
+            <div class="footer-space"></div>
+        </div>
+    </main>
+
+    <script src="static/js/login.js"></script>
+</body>
+</html>

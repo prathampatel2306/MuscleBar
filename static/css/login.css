@@ -1,0 +1,271 @@
+/* General Layout Settings */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1c110d;
+    color: #f6ddd6;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Text Highlight Color */
+::selection {
+    background-color: #ce4d18;
+    color: #ffffff;
+}
+
+/* Center Login Box Layout */
+.login-card {
+    width: 100%;
+    max-width: 448px;
+    background-color: #2a1d18;
+    border-radius: 8px;
+    border: 1px solid #594139;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.top-accent {
+    height: 4px;
+    width: 100%;
+    background-color: #ce4d18;
+}
+
+.card-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+}
+
+/* Header & Logo styling */
+.header {
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    object-fit: contain;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #f6ddd6;
+    letter-spacing: -0.05em;
+    line-height: 1.25;
+}
+
+/* Form Styles */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    align-items: center;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.input-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #e1bfb5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.input-field {
+    background-color: #1c110d;
+    border: 1px solid #594139;
+    border-radius: 4px;
+    padding: 12px;
+    color: #f6ddd6;
+    font-size: 16px;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.input-field::placeholder {
+    color: rgba(225, 191, 181, 0.5);
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #ce4d18;
+    box-shadow: 0 0 0 1px #ce4d18;
+}
+
+/* Password wrapper and button icon placement */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-field {
+    padding-right: 48px;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #e1bfb5;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.toggle-password-btn:hover {
+    color: #f6ddd6;
+}
+
+.toggle-password-btn:focus {
+    outline: none;
+}
+
+.icon-size {
+    font-size: 20px;
+}
+
+/* Role Selector Grid Rules */
+.role-fieldset {
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 8px;
+    width: 100%;
+}
+
+.role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.radio-option {
+    position: relative;
+}
+
+.hidden-radio {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.role-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    background-color: #1c110d;
+    border: 1px solid #594139;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #f6ddd6;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.2s ease;
+}
+
+.role-label:hover {
+    background-color: #352722;
+}
+
+/* Styles when hidden inputs are checked */
+.hidden-radio:checked + .role-label {
+    background-color: #ce4d18;
+    color: #ffffff;
+    border-color: #ce4d18;
+}
+
+/* Primary Action Button */
+.submit-btn {
+    margin-top: 16px;
+    width: 100%;
+    padding: 16px;
+    background-color: #ce4d18;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+    filter: brightness(1.1);
+}
+
+.submit-btn:active {
+    transform: scale(0.98);
+}
+
+.footer-space {
+    margin-top: 8px;
+}
+
+/* Small Responsive Tweaks */
+@media (min-width: 640px) {
+    .card-content {
+        padding: 40px 48px;
+    }
+}
+
+.flash-message{
+    width:100%;
+    padding:12px;
+    margin-bottom:20px;
+    border-radius:4px;
+    font-size:14px;
+    font-weight:600;
+    text-align:center;
+}
+
+.flash-message.error{
+    background:#4d1d1d;
+    color:#ffb4ab;
+    border:1px solid #ff6b6b;
+}
+
+.flash-message.success{
+    background:#16331d;
+    color:#9cff9c;
+    border:1px solid #3ddc84;
+}

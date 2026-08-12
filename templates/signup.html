@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Muscle Bar - Create Account</title>
+
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="static/css/signup.css">
+</head>
+<body>
+
+    <div class="signup-card">
+        <div class="card-header">
+            <div class="logo-wrapper">
+                <img alt="Muscle Bar Logo" class="brand-logo" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQE_RuqgvEUOGlYWkp7XQBDSear-5Av5YMgtsZvwiDs7uo9lUUbkI2oErEKNp5tGwHwAYOEEBKFPF4UIKQ1OhCGf3hrT0YVPmUKAlmch2LhaBLdDx7KW9CiWzO4AJe13uo_NgYwHZWWIXClF3KKzanJcw4zBi1pMcLGd2ftHBuXnthE4q6eobNi2wlZi11BCGppd1OjuFzwg5z5QPZVv61vLK6cmbBasPOOz4BYeipoHcxydENiDH688FLYMAKHTUR"/>
+            </div>
+            <h1 class="page-title">Create Account</h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <form id="signupForm" class="signup-form" method=post action="{{ url_for('auth.signup') }}">
+            <div class="input-group">
+                <label class="input-label" for="username">Username</label>
+                <input class="input-field" id="username" name="username" placeholder="Enter username" required type="text"/>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label" for="password">Password</label>
+                <div class="password-input-container">
+                    <input class="input-field password-field" id="password" name="password" placeholder="Enter password" required type="password"/>
+                    <button class="toggle-password-btn" type="button">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </button>
+                </div>
+                <p id="passwordHint" class="password-warning hidden">The password should be a combination of letters, numbers and symbols.</p>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label" for="confirm-password">Confirm Password</label>
+                <div class="password-input-container">
+                    <input class="input-field password-field" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required type="password"/>
+                    <button class="toggle-password-btn" type="button">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </button>
+                </div>
+                <p id="confirmPasswordHint" class="password-warning hidden">The password doesn't match.</p>
+            </div>
+
+            <div class="role-selection-group">
+                <label class="input-label label-spacing">Role</label>
+                <div class="role-grid">
+                    <div class="radio-option">
+                        <input checked class="hidden-radio" id="role-member" name="role" type="radio" value="member"/>
+                        <label class="role-btn-label" for="role-member">Member</label>
+                    </div>
+                    <div class="radio-option">
+                        <input class="hidden-radio" id="role-trainer" name="role" type="radio" value="trainer"/>
+                        <label class="role-btn-label" for="role-trainer">Trainer</label>
+                    </div>
+                    <div class="radio-option">
+                        <input class="hidden-radio" id="role-admin" name="role" type="radio" value="admin"/>
+                        <label class="role-btn-label" for="role-admin">Admin</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group" id="adminCodeGroup" style="display: none;">
+
+                <label class="input-label">Admin Secret Code</label>
+
+                <input
+                    type="password"
+                    id="adminCode"
+                    name="admin_code"
+                    class="form-input"
+                    placeholder="Enter Admin Secret Code">
+
+            </div>
+
+            <button class="submit-btn" type="submit">Sign Up</button>
+        </form>
+
+        <div class="form-footer">
+            <p class="footer-text">
+                Already have an account?
+                <a class="login-redirect-link" href="{{ url_for('auth.login') }}">Log In</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/signup.js') }}"></script>
+</body>
+</html>

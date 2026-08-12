@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Your Elite Coach - The Muscle Bar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select_trainer.css') }}">
+</head>
+<body class="page-body">
+
+<header class="navbar-header">
+    <nav class="navbar-container">
+        <div class="navbar-brand-group">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5xYgasoCehCNyZMetfg60jFWD8641vugsocD1iBK_N51diUOsAHD0MMlONgZswQcOYc1XV27D1QY1WEnPPNBwkS1IV7_xkMkMnswGta_uBE-WS3hPFg5A8iosTR-P4eoxUcJxjInIesw3k4gV2Fo26yoGkdhhT2ugZUeC-tA6hcar0y8SBvJx5xEZdQW71DaJZqyOUTtC_EUSx8BKlartq16E2jsL-5XwZZ8XLpVktYaRMXKznhw5XoHjE1eL7heD" alt="The Muscle Bar Logo" class="brand-logo">
+            <span class="brand-title">The Muscle Bar</span>
+        </div>
+        <div class="navbar-links">
+            <a href="{{ url_for('member.member_dashboard') }}" class="nav-link-item">Home</a>
+            <a href="#" class="nav-link-item active">Trainer</a>
+        </div>
+        <div class="navbar-actions">
+            <a href="{{ url_for('auth.logout') }}" class="icon-btn" aria-label="Logout">
+                <span class="material-symbols-outlined">logout</span>
+            </a>
+        </div>
+    </nav>
+</header>
+
+<main class="main-container">
+    <section class="hero-section">
+        <h1 class="hero-title">
+            SELECT YOUR <br><span class="highlight-text">ELITE COACH</span>
+        </h1>
+        <p class="hero-desc">
+            Precision guidance for peak performance. Choose a specialist to lead your transformation.
+            Our experts use data-driven methodology to guarantee results.
+        </p>
+    </section>
+
+    <div class="trainer-grid">
+
+        {% for trainer,profile in trainers %}
+
+        <div class="trainer-card">
+
+            <div class="card-content">
+
+                <div class="card-header">
+                    <h3 class="trainer-name">
+                        {{ profile.full_name }}
+                    </h3>
+                </div>
+
+                <p class="trainer-bio">
+                    {{ profile.bio }}
+                </p>
+
+                {% set specs = profile.specialization.split(',') %}
+                <div class="tag-group">
+                    {% for spec in specs %}
+                        <span class="specialty-tag">{{ spec.strip() }}</span>
+                            {% if loop.index % 2 == 0 and not loop.last %}
+                                <div class="tag-break"></div>
+                            {% endif %}
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <a href="{{ url_for('member.assign_trainer', trainer_id=trainer.id) }}">
+                    <button class="select-btn">
+                        Select Trainer
+                    </button>
+                </a>
+            </div>
+
+        </div>
+
+            {% endfor %}
+
+</div></div>
+</main>
+<script src="{{ url_for('static', filename='js/select_trainer.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muscle Bar - Athlete Profile Setup</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/css/profile_setup.css">
+</head>
+<body class="bg-background text-on-surface font-body">
+
+    <nav class="navbar">
+        <div class="text-2xl font-black tracking-tighter text-primary uppercase font-headline">
+            Muscle Bar
+        </div>
+    </nav>
+
+    <aside class="sidebar">
+        <div class="sidebar-wrapper">
+            <div class="sidebar-header">
+                <h3 class="font-headline font-bold text-primary">Onboarding</h3>
+                <p class="text-on-surface-variant text-xs font-label uppercase tracking-tighter mt-1">Step 2 of 2</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="sidebar-item item-disabled">
+                    <span class="material-symbols-outlined">assignment</span>
+                    <span class="font-label uppercase text-xs tracking-widest">Plan</span>
+                </div>
+                <div class="sidebar-item item-active">
+                    <span class="material-symbols-outlined">person</span>
+                    <span class="font-label uppercase text-xs tracking-widest">Profile</span>
+                </div>
+            </nav>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <div class="form-wrapper">
+
+            <div class="progress-section">
+                <div class="progress-info">
+                    <h1 class="progress-title">
+                        BUILD YOUR <span class="highlight-text">ATHLETE</span> PROFILE
+                    </h1>
+                    <span class="font-label text-primary text-sm font-bold">50%</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <section class="form-container">
+                <div class="bg-glow"></div>
+
+                                <form id="profileForm"
+                      class="profile-form"
+                      method="POST"
+                      action="{{ url_for('member.profile_setup') }}">
+
+                    <!-- Full Name & Date of Birth -->
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label class="input-label">Full Name</label>
+                            <input
+                                type="text"
+                                name="full_name"
+                                required
+                                placeholder="e.g. MARCUS VANCE"
+                                class="form-input">
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Date of Birth</label>
+                            <input
+                                type="date"
+                                id="date_of_birth"
+                                name="date_of_birth"
+                                required
+                                class="form-input date-input">
+                        </div>
+
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label class="input-label">Gender</label>
+
+                            <select
+                                name="gender"
+                                required
+                                class="form-input">
+
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <!-- Height & Weight -->
+                    <div class="form-grid">
+
+                        <div class="input-group">
+                            <label class="input-label">Height</label>
+
+                            <div class="relative-input">
+                                <input
+                                    type="number"
+                                    name="height"
+                                    required
+                                    placeholder="180"
+                                    class="form-input field-append">
+
+                                <span class="input-suffix">cm</span>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label">Current Weight</label>
+
+                            <div class="relative-input">
+                                <input
+                                    type="number"
+                                    name="weight"
+                                    step="0.1"
+                                    required
+                                    placeholder="75"
+                                    class="form-input field-append">
+
+                                <span class="input-suffix">kg</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Experience -->
+                    <div class="radio-section">
+
+                        <label class="input-label">
+                            Experience Level
+                        </label>
+
+                        <div class="radio-grid">
+
+                            <label class="radio-card">
+
+                                <input
+                                    type="radio"
+                                    name="experience_level"
+                                    value="Beginner"
+                                    class="sr-only"
+                                    checked>
+
+                                <div class="card-box">
+                                    <span class="material-symbols-outlined card-icon">
+                                        pace
+                                    </span>
+
+                                    <h4 class="font-headline font-bold text-sm">
+                                        BEGINNER
+                                    </h4>
+
+                                    <p class="card-desc">
+                                        0–6 Months
+                                    </p>
+                                </div>
+
+                                <span class="material-symbols-outlined check-badge">
+                                    check_circle
+                                </span>
+
+                            </label>
+
+                            <label class="radio-card">
+
+                                <input
+                                    type="radio"
+                                    name="experience_level"
+                                    value="Intermediate"
+                                    class="sr-only">
+
+                                <div class="card-box">
+
+                                    <span class="material-symbols-outlined card-icon">
+                                        fitness_center
+                                    </span>
+
+                                    <h4 class="font-headline font-bold text-sm">
+                                        INTERMEDIATE
+                                    </h4>
+
+                                    <p class="card-desc">
+                                        1–3 Years
+                                    </p>
+
+                                </div>
+
+                                <span class="material-symbols-outlined check-badge">
+                                    check_circle
+                                </span>
+
+                            </label>
+
+                            <label class="radio-card">
+
+                                <input
+                                    type="radio"
+                                    name="experience_level"
+                                    value="Pro"
+                                    class="sr-only">
+
+                                <div class="card-box">
+
+                                    <span class="material-symbols-outlined card-icon">
+                                        military_tech
+                                    </span>
+
+                                    <h4 class="font-headline font-bold text-sm">
+                                        PRO
+                                    </h4>
+
+                                    <p class="card-desc">
+                                        Elite Athlete
+                                    </p>
+
+                                </div>
+
+                                <span class="material-symbols-outlined check-badge">
+                                    check_circle
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+
+                        <button
+                            type="submit"
+                            id="submitBtn"
+                            class="submit-btn">
+
+                            Complete Profile
+
+                        </button>
+
+                    </div>
+
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <nav class="mobile-navbar">
+        <div class="mobile-nav-item">
+            <span class="material-symbols-outlined">assignment</span>
+            <span class="mobile-label">Plan</span>
+        </div>
+        <div class="mobile-nav-item active-tab">
+            <span class="material-symbols-outlined">person</span>
+            <span class="mobile-label">Profile</span>
+        </div>
+        <div class="mobile-nav-item">
+            <span class="material-symbols-outlined">straighten</span>
+            <span class="mobile-label">Metrics</span>
+        </div>
+        <div class="mobile-nav-item">
+            <span class="material-symbols-outlined">fitness_center</span>
+            <span class="mobile-label">Exp</span>
+        </div>
+    </nav>
+
+    <div id="statusModal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <span class="material-symbols-outlined success-icon">verified</span>
+            <h2 class="modal-heading">Profile Complete</h2>
+            <p class="modal-message">Your physical parameters and biometric tier have been successfully mapped to the dashboard database framework.</p>
+            <button type="button" id="closeModalBtn" class="modal-btn">Continue </button>
+        </div>
+    </div>
+
+    <div class="bg-decorations">
+        <div class="circle-glow pulse"></div>
+        <div class="circle-glow generic"></div>
+        <div class="texture-overlay"></div>
+    </div>
+
+    <script src="static/js/profile_setup.js"></script>
+</body>
+</html>

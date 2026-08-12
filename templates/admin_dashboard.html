@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Muscle Bar - Performance Overview</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&display=swap"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_dashboard.css') }}">
+</head>
+<body>
+
+<header class="header-nav">
+    <div class="header-container">
+        <div class="header-left">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9yx0rB9p7mbg-nQ4zKDL7OsDjfZstfSV7wlit2aUqFNsqSDQT8uuCTKV2iA8YDDrJyTG_rTVAcug0eXVkfD854NfQSp02D--WaK4Go5KJR2KBxSx59shb3QhqfexOUkFvq6B_kf9I7B-65G_AEmYOIVtsWnb3yXOey_2L2PhQNF51COQdyR61cVRdjyTrMLnpsY8O_bVaOTce7A009DJZSkZZ7jk_Yck7eD_cnU5o9OMpaT7CTRwANTfEEAGLWxhS"
+                 alt="The Muscle Bar Logo" class="brand-logo">
+            <h1 class="brand-title">The Muscle Bar</h1>
+            <nav class="nav-links">
+                <a class="nav-link " href="{{ url_for('admin.admin_landing') }}">Manage Gym</a>
+                <a class="nav-link active" href="{{ url_for('admin.admin_dashboard') }}">Dashboard</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <a href="{{ url_for('auth.logout') }}"
+               class="material-symbols-outlined logout-btn"
+               title="Logout">
+                logout
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+
+    <header class="hero-section">
+        <h1 class="hero-title">
+            Performance Overview
+        </h1>
+
+        <div class="kpi-grid">
+            <div class="kpi-card" data-kpi="card">
+                <div class="kpi-glow"></div>
+                <p class="kpi-label">Total Revenue (YTD)</p>
+                <h3 class="kpi-value primary">₹{{ "{:,.0f}".format(total_revenue) }}</h3>
+                <div class="kpi-trend-box">
+                    <span class="material-symbols-outlined trend-icon filled">trending_up</span>
+                    <span class="trend-text">Year-to-date membership revenue</span>
+                </div>
+            </div>
+            <div class="kpi-card" data-kpi="card">
+                <p class="kpi-label">Active Members</p>
+                <h3 class="kpi-value">{{ active_member_count }}</h3>
+                <div class="kpi-trend-box">
+                    <span class="trend-text">Currently active memberships</span>
+                </div>
+            </div>
+            <div class="kpi-card" data-kpi="card">
+                <p class="kpi-label">Trainer Utilization</p>
+                <h3 class="kpi-value tertiary">{{ trainer_utilization }}%</h3>
+                <div class="kpi-trend-box">
+                    <span class="trend-text">{{ assigned_trainer_count }} of {{ total_trainer_count }} trainers assigned</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="revenue-section">
+    <div class="revenue-card">
+
+        <div class="revenue-header">
+            <div>
+                <h2 class="section-heading">Revenue Trend</h2>
+                <p class="section-subtext">
+                    Monthly membership revenue for the current year.
+                </p>
+            </div>
+
+            <button class="year-btn">{{ dashboard_year }}</button>
+        </div>
+
+        <div class="chart-wrapper">
+
+            <div class="y-axis-labels" id="y-axis-labels"></div>
+
+            <div class="chart-area">
+
+                <svg
+                    class="chart-svg"
+                    viewBox="0 0 1000 350"
+                    preserveAspectRatio="none"
+                    xmlns="http://www.w3.org/2000/svg">
+
+                    <defs>
+                        <linearGradient
+                            id="chartGradient"
+                            x1="0"
+                            y1="0"
+                            x2="0"
+                            y2="1">
+
+                            <stop
+                                offset="0%"
+                                stop-color="#f06530"
+                                stop-opacity="0.2">
+                            </stop>
+
+                            <stop
+                                offset="100%"
+                                stop-color="#f06530"
+                                stop-opacity="0">
+                            </stop>
+
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Grid lines -->
+                    <line
+                        x1="0"
+                        y1="50"
+                        x2="1000"
+                        y2="50"
+                        class="chart-grid-line">
+                    </line>
+
+                    <line
+                        x1="0"
+                        y1="125"
+                        x2="1000"
+                        y2="125"
+                        class="chart-grid-line">
+                    </line>
+
+                    <line
+                        x1="0"
+                        y1="200"
+                        x2="1000"
+                        y2="200"
+                        class="chart-grid-line">
+                    </line>
+
+                    <line
+                        x1="0"
+                        y1="275"
+                        x2="1000"
+                        y2="275"
+                        class="chart-grid-line">
+                    </line>
+
+                    <line
+                        x1="0"
+                        y1="350"
+                        x2="1000"
+                        y2="350"
+                        class="chart-grid-line">
+                    </line>
+
+                    <!-- Revenue area -->
+                    <path
+                        id="revenue-area"
+                        d=""
+                        fill="url(#chartGradient)">
+                    </path>
+
+                    <!-- Revenue line -->
+                    <path
+                        id="revenue-line"
+                        d=""
+                        fill="none"
+                        stroke="#f06530"
+                        stroke-width="4"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                    </path>
+
+                    <!-- Points -->
+                    <g id="revenue-points"></g>
+
+                </svg>
+
+                <!-- Month labels use the SAME chart area -->
+                <div class="month-labels" id="month-labels">
+                    <span>JAN</span>
+                    <span>FEB</span>
+                    <span>MAR</span>
+                    <span>APR</span>
+                    <span>MAY</span>
+                    <span>JUN</span>
+                    <span>JUL</span>
+                    <span>AUG</span>
+                    <span>SEP</span>
+                    <span>OCT</span>
+                    <span>NOV</span>
+                    <span>DEC</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <section class="bento-grid dashboard-bottom-grid">
+
+        <div class="bento-card member-growth-card">
+
+            <h2 class="card-heading">
+                Member Growth
+            </h2>
+
+            <div class="growth-chart">
+
+                <!-- Grid -->
+                <div class="growth-grid">
+                    <div class="growth-grid-line"></div>
+                    <div class="growth-grid-line"></div>
+                    <div class="growth-grid-line"></div>
+                    <div class="growth-grid-line"></div>
+                    <div class="growth-grid-line"></div>
+                </div>
+
+                <!-- Bars -->
+                <div class="growth-bars">
+
+                    {% for item in membership_growth %}
+
+                    <div
+                            class="growth-column"
+                            data-count="{{ item.count }}"
+                            data-year="{{ item.year }}">
+
+                        <!-- Value -->
+                        <span class="growth-value">
+                    {{ item.count }}
+                </span>
+
+                        <!-- Bar -->
+                        <div
+                                class="growth-bar {% if loop.last %}current-year-bar{% endif %}">
+                        </div>
+
+                        <!-- Year -->
+                        <span class="growth-year {% if loop.last %}current-year-label{% endif %}">
+                    {{ item.year }}
+                </span>
+
+                    </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <div class="growth-footer">
+
+        <span class="growth-badge">
+
+            {% if growth_percentage is not none %}
+
+                {% if growth_percentage > 0 %}
+                    +{{ growth_percentage }}% Growth vs Previous Year
+                {% elif growth_percentage < 0 %}
+                    {{ growth_percentage }}% vs Previous Year
+                {% else %}
+                    0% Growth vs Previous Year
+                {% endif %}
+
+            {% else %}
+
+                Current year:
+                {{ membership_growth[-1].count }}
+                new memberships
+
+            {% endif %}
+
+        </span>
+
+            </div>
+
+        </div>
+
+        <div class="bento-card">
+
+            <h3 class="bento-title">
+                Trainer Performance
+            </h3>
+
+            <div class="trainer-list">
+
+                {% for trainer in trainer_performance %}
+
+                {% if max_trainer_members > 0 %}
+                {% set trainer_width =
+                (trainer.member_count / max_trainer_members * 100)
+                %}
+                {% else %}
+                {% set trainer_width = 0 %}
+                {% endif %}
+
+                <div class="trainer-item">
+
+                    <div class="trainer-info">
+
+                        <div class="trainer-name-group">
+        <span class="trainer-name">
+            {{ trainer.name }}
+        </span>
+
+                            <span class="trainer-specialization">
+            {{ trainer.specialization }}
+        </span>
+                        </div>
+
+                        <span class="trainer-member-count">
+        {{ trainer.member_count }}
+        {% if trainer.member_count == 1 %}
+            MEMBER
+        {% else %}
+            MEMBERS
+        {% endif %}
+    </span>
+
+                    </div>
+
+                    <div class="progress-track">
+
+                        <div
+                                class="progress-fill"
+                                style="width: {{ trainer_width }}%;">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% else %}
+
+                <div class="trainer-empty">
+                    No trainer assignments yet.
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+
+        <div class="bento-card tiers-card">
+            <div class="tier-chart-side">
+                <svg viewBox="0 0 100 100" class="donut-svg">
+
+    <!-- Background ring -->
+    <circle
+        cx="50"
+        cy="50"
+        r="40"
+        class="donut-base">
+    </circle>
+
+    <!-- 12 Months -->
+    <circle
+        cx="50"
+        cy="50"
+        r="40"
+        class="donut-segment"
+        data-index="0">
+    </circle>
+
+    <!-- 6 Months -->
+    <circle
+        cx="50"
+        cy="50"
+        r="40"
+        class="donut-segment"
+        data-index="1">
+    </circle>
+
+    <!-- 3 Months -->
+    <circle
+        cx="50"
+        cy="50"
+        r="40"
+        class="donut-segment"
+        data-index="2">
+    </circle>
+
+</svg>
+                <div class="donut-overlay">
+                    <span class="donut-title">3 Tiers</span>
+                    <span class="donut-sub">CORE DISTRIBUTION</span>
+                </div>
+            </div>
+
+            <div class="tier-content-side">
+                <div class="tier-inner-space">
+                    <h3 class="bento-title">Membership Distribution</h3>
+                    <ul class="distribution-list">
+
+                        <li class="dist-item">
+                            <div class="dist-color box-annual"></div>
+                            <span class="dist-text">
+                                Annual Plan
+                                ({{ membership_distribution[0].percentage }}%)
+                            </span>
+                        </li>
+
+                        <li class="dist-item">
+                            <div class="dist-color box-semi"></div>
+                            <span class="dist-text">
+                                Semi-Annual Plan
+                                ({{ membership_distribution[1].percentage }}%)
+                            </span>
+                        </li>
+
+                        <li class="dist-item">
+                            <div class="dist-color box-quarter"></div>
+                            <span class="dist-text">
+                                Quarterly Plan
+                                ({{ membership_distribution[2].percentage }}%)
+                            </span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+<footer class="footer-container"></footer>
+
+<div id="revenue-data"
+     data-revenue='{{ monthly_revenue | tojson }}'
+     hidden>
+</div>
+
+<div
+    id="membership-data"
+    data-distribution='{{ membership_distribution | tojson }}'
+    hidden>
+</div>
+
+<script src="{{ url_for('static', filename='js/admin_dashboard.js') }}"></script>
+</body>
+</html>

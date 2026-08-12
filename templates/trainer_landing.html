@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainer Dashboard - The Muscle Bar</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&display=swap"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/trainer_landing.css') }}">
+</head>
+
+<body class="page-body">
+
+<nav class="top-nav">
+
+    <div class="nav-container">
+
+        <div class="nav-brand">
+
+            <span>
+                THE MUSCLE BAR
+            </span>
+
+        </div>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('trainer.trainer_dashboard') }}"
+               class="nav-link active">
+
+                Home
+
+            </a>
+
+        </div>
+
+        <div class="nav-icons">
+
+            <a href="{{ url_for('auth.logout') }}" class="icon-btn" title="Logout">
+                <span class="material-symbols-outlined">logout</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<main class="main-canvas">
+
+    <section class="hero-header">
+
+        <div class="hero-bg-icon">
+
+        <span class="material-symbols-outlined giant-icon">
+
+            fitness_center
+
+        </span>
+
+        </div>
+
+        <div class="hero-content">
+
+            <div class="hero-tag">
+
+                TRAINER DASHBOARD
+
+            </div>
+
+            <div class="hero-row">
+
+                <div>
+
+                    <h1 class="hero-title">
+
+                        WELCOME
+
+                        <span class="text-primary-accent">
+                            {{ profile.full_name if profile else trainer.username }}
+                        </span>
+
+                    </h1>
+
+                    <p class="hero-quote">
+
+                        Build stronger members one workout at a time.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="dashboard-grid">
+
+        <div class="left-column">
+
+            <section class="panel-section">
+
+                <div class="panel-header">
+
+                    <h2 class="panel-title">
+
+                        Pending Workout Requests
+
+                    </h2>
+
+                    <span class="badge-sessions">
+
+{{ requests|length }} Pending
+
+</span>
+
+                </div>
+
+                {% if requests %}
+
+                {% for request in requests %}
+
+                <div class="member-card">
+
+                    <div>
+
+                        <div class="member-name">
+
+                            {{ request.member.full_name }}
+
+                        </div>
+
+                        <div style="font-size:13px;color:#b7b7b7;margin-top:6px;">
+
+                            Membership :
+                            {{ request.member.membership_plan }}
+
+                        </div>
+
+                        <div style="font-size:13px;color:#b7b7b7;">
+
+                            Experience :
+                            {{ request.member.experience_level }}
+
+                        </div>
+
+                        <div style="font-size:13px;color:#b7b7b7;">
+
+                            Height :
+                            {{ request.member.height }} cm
+
+                        </div>
+
+                        <div style="font-size:13px;color:#b7b7b7;">
+
+                            Weight :
+                            {{ request.member.weight }} kg
+
+                        </div>
+
+                        <div style="font-size:13px;color:#b7b7b7;">
+
+                            Requested :
+
+                            {{ request.created_at.strftime("%d %b %Y") }}
+
+                        </div>
+
+                    </div>
+
+                    <form method="GET">
+
+                        <button
+                                class="action-btn assign-workout-btn"
+                                type="button"
+                                data-request-id="{{ request.id }}"
+                                data-member-name="{{ request.member.full_name }}">
+
+                            Assign Workout
+                        </button>
+
+                    </form>
+
+                </div>
+
+                {% endfor %}
+
+                {% else %}
+
+                <div
+                        style="padding:35px;text-align:center;">
+
+                    No Pending Workout Requests
+
+                </div>
+
+                {% endif %}
+
+            </section>
+
+
+        </div>
+
+        <div class="right-column">
+
+            <section class="card-section notice-section">
+
+                <div class="notice-bg-icon">
+        <span class="material-symbols-outlined giant-campaign">
+            campaign
+        </span>
+                </div>
+
+                <h2 class="card-heading">
+                    Notice Board
+                </h2>
+
+                <div class="notices-space">
+
+                    {% if notices %}
+
+                    {% for notice in notices %}
+
+                    <div class="notice-item">
+
+                        <div class="dot-primary"></div>
+
+                        <div>
+
+                            <div class="notice-title">
+                                {{ notice.message }}
+                            </div>
+
+                            <div class="notice-desc">
+                                Posted on {{ notice.created_at.strftime('%d %b %Y') }}
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                    {% else %}
+
+                    <div class="notice-item">
+
+                        <div class="dot-primary"></div>
+
+                        <div>
+
+                            <div class="notice-title">
+                                No Notices Available
+                            </div>
+
+                            <div class="notice-desc">
+                                You're all caught up.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+    <div class="workout-modal-overlay" id="workoutModal">
+
+        <div class="workout-modal">
+
+            <button
+                    type="button"
+                    class="workout-modal-close"
+                    id="closeWorkoutModal">
+
+            <span class="material-symbols-outlined">
+                close
+            </span>
+
+            </button>
+
+            <h2 class="workout-modal-title">
+                ASSIGN WORKOUT
+            </h2>
+
+            <div class="workout-member-name" id="workoutMemberName"></div>
+
+            <form id="workoutForm"
+                  method="POST"
+                  action="{{ url_for('trainer.assign_workout') }}">
+
+                <input
+                        type="hidden"
+                        id="workoutRequestId"
+                        name="request_id">
+
+                <div class="workout-name-field">
+
+                    <label for="workoutName">
+                        Workout
+                    </label>
+
+                    <input
+                            type="text"
+                            id="workoutName"
+                            name="workout_day"
+                            placeholder="Enter workout name"
+                            required>
+
+                </div>
+
+                <div class="exercise-header">
+
+                    <div>
+                        Exercise
+                    </div>
+
+                    <div>
+                        Sets
+                    </div>
+
+                    <div>
+                        Rep Range
+                    </div>
+
+                    <div></div>
+
+                </div>
+
+                <div id="exerciseRows">
+
+                    <div class="exercise-row">
+
+                        <input
+                                type="text"
+                                name="exercise[]"
+                                placeholder="Exercise"
+                                required>
+
+                        <input
+                                type="number"
+                                name="sets[]"
+                                placeholder="Sets"
+                                min="1"
+                                required>
+
+                        <input
+                                type="text"
+                                name="reps[]"
+                                placeholder="8-12"
+                                required>
+
+                        <button
+                                type="button"
+                                class="remove-exercise-btn">
+
+                <span class="material-symbols-outlined">
+                    delete
+                </span>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button
+                        type="button"
+                        class="add-exercise-btn"
+                        id="addExerciseBtn">
+
+        <span class="material-symbols-outlined">
+            add
+        </span>
+
+                    Add Exercise
+
+                </button>
+
+                <div class="workout-modal-actions">
+
+                    <button
+                            type="button"
+                            class="modal-cancel-btn"
+                            id="cancelWorkoutBtn">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                            type="submit"
+                            class="modal-assign-btn">
+
+                        Assign
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+</main>
+
+<script src="{{ url_for('static', filename='js/trainer_landing.js') }}"></script>
+
+</body>
+
+</html>

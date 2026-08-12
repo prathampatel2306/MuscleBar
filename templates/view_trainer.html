@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Trainer - The Muscle Bar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/view_trainer.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <nav class="nav-container">
+            <div class="brand">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuABzNljxwUGFAXBP3QLogZZmTt3JqkF2NKc-tue8BoG809OqvSwL3iJReqflfF-oUJMDv5zp4UB8EVF2t8CQT7cWraZK-mBRSkO1NKPAfGJCvcfwUo5sNTsA_yBp8pX8ace0v7l6QgiIGi9RTPGp0dC5lxuTfSDg46wkGMnu1AlKXcgZQ6NdyEXOurG1h5D0ETx66iwcz1JQlmQRKMZ98sVCVWw-G-MRjOnl2x7i9N-26q1P3NsOPUiLetWDPnibzqW" alt="The Muscle Bar Logo" class="logo">
+                <span class="brand-title">The Muscle Bar</span>
+            </div>
+            <div class="nav-links">
+                <a href="{{ url_for('member.member_dashboard') }}" class="nav-link">Home</a>
+                <a href="#" class="nav-link active">Trainer</a>
+            </div>
+            <div class="nav-actions">
+                <a href="{{ url_for('auth.logout') }}" class="logout-btn" title="Logout">
+                    <span class="material-symbols-outlined">logout</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section id="state-assigned" class="trainer-section">
+            <h1 class="page-title">My Trainer</h1>
+
+            <div class="dashboard-grid">
+                <div class="trainer-card">
+                    <div class="trainer-info">
+                        <div class="header-group">
+                            <h2 class="trainer-name">{{ profile.full_name }}</h2>
+                            <div class="divider-line"></div>
+                        </div>
+
+                        <div class="info-block">
+                            <h3 class="info-label">Experience</h3>
+                            <p class="experience-text">{{ profile.experience }}+ Years</p>
+                        </div>
+
+                        <div class="info-block">
+                            <h3 class="info-label">Specialization</h3>
+
+                            {% set specs = profile.specialization.split(',') %}
+
+                            <ul class="tags-list">
+                                {% for spec in specs %}
+                                <li class="tag">
+                                    {{ spec.strip() }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Moved inside the trainer-card -->
+                    <div class="change-trainer-container">
+                        <a href="{{ url_for('member.change_trainer') }}" class="change-trainer-btn">
+                            Change Trainer
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer"></footer>
+
+    <script src="{{ url_for('static', filename='js/view_trainer.js') }}"></script>
+</body>
+</html>

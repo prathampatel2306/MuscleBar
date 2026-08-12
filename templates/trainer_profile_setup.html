@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trainer Profile Builder - The Muscle Bar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=block" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/trainer_profile_setup.css') }}">
+</head>
+<body class="page-body">
+    <div class="fixed-overlay"></div>
+
+    <header class="site-header">
+        <div class="header-container">
+            <div class="brand-wrapper">
+                <span class="brand-title">The Muscle Bar</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="radial-glow"></div>
+
+        <div class="onboarding-card">
+            <div class="card-inner">
+                <div class="header-section">
+                    <h1 class="main-heading">
+                        Trainer <span class="text-primary-accent">Profile</span> Builder
+                    </h1>
+                    <p class="sub-heading">
+                        Construct your professional identity in the Muscle Bar ecosystem. High-performance data begins with precision credentials.
+                    </p>
+                </div>
+
+                <form id="trainerProfileForm" action="{{ url_for('trainer.trainer_profile_setup') }}" method="POST" class="form-space">
+                    <div class="grid-row">
+                        <div class="input-group">
+                            <label class="input-label">Full Name</label>
+                            <input type="text" name="full_name" placeholder="e.g. Vikram Singh" class="text-input" required>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Years of Experience</label>
+                            <input type="number" name="experience" placeholder="e.g. 5" class="text-input" required>
+                        </div>
+                    </div>
+
+                    <div class="spec-section">
+                        <label class="input-label center-label">Primary Specialization</label>
+                        <div class="spec-grid">
+                            <label class="cursor-pointer">
+                                <input type="checkbox" name="specialization" value="Strength" class="hidden-input peer">
+                                <div class="spec-card">
+                                    <span class="spec-text">Strength</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" name="specialization" value="Hypertrophy" class="hidden-input peer">
+                                <div class="spec-card">
+                                    <span class="spec-text">Hypertrophy</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" name="specialization" value="Yoga" class="hidden-input peer">
+                                <div class="spec-card">
+                                    <span class="spec-text">Yoga</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" name="specialization" value="Recovery" class="hidden-input peer">
+                                <div class="spec-card">
+                                    <span class="spec-text">Recovery</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" name="specialization" value="Nutrition" class="hidden-input peer">
+                                <div class="spec-card">
+                                    <span class="spec-text">Nutrition</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="checkbox" name="specialization" value="Mobility" class="hidden-input peer">
+                                <div class="spec-card">
+                                    <span class="spec-text">Mobility</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Gender Identity</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="Male" class="radio-input" required>
+                                <span class="radio-text">Male</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender"  value="Female" class="radio-input">
+                                <span class="radio-text">Female</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="Other" class="radio-input">
+                                <span class="radio-text">Other</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Professional Bio</label>
+                        <textarea rows="4" name="bio" placeholder="Briefly describe your coaching philosophy and track record..." class="text-input textarea-box" required></textarea>
+                        <p class="char-limit">Max 250 Characters</p>
+                    </div>
+
+                    <div class="btn-container">
+                        <button type="submit" class="submit-btn">
+                            COMPLETE PROFILE
+                            <span class="material-symbols-outlined arrow-icon">arrow_forward</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="bottom-bar"></div>
+        </div>
+    </main>
+
+    <div id="completeModal" class="modal-overlay hidden">
+        <div class="modal-box">
+            <div class="modal-icon-wrap">
+                <span class="material-symbols-outlined modal-check">check_circle</span>
+            </div>
+            <h2 class="modal-title">Profile Complete</h2>
+            <p class="modal-desc">Your trainer credentials have been successfully registered into the Muscle Bar system.</p>
+            <button id="modalCloseBtn" class="modal-btn">Continue to Dashboard</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/trainer_profile_setup.js') }}"></script>
+</body>
+</html>
